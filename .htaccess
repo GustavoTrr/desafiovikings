@@ -1,4 +1,4 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteRule ^(.*)$ index.php?classe=$1&%{QUERY_STRING}
+	RewriteRule ^(.*)$ index.php?rota=$1&%{QUERY_STRING}
 </IfModule>
