@@ -1,4 +1,4 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
-	RewriteRule ^index.html$ testes/index2.html
+	RewriteRule ^(.*)$ index.php?classe=$1&%{QUERY_STRING}
 </IfModule>
