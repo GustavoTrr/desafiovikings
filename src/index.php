@@ -4,8 +4,8 @@
  * Arquivo responsável por inicializar todo o sistema
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/src/helpers/helpers.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/helpers/helpers.php';
 
 use Viking\Routes\Routes;
 
