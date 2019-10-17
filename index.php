@@ -13,5 +13,9 @@ use Viking\Routes\Routes;
 $queryItens = $_REQUEST;
 unset($queryItens['rota']);
 
-$routes = new Routes();
-$routes->direcionarRequisicao($_REQUEST['rota'], $queryItens);
+try {
+    $routes = new Routes();
+    $routes->direcionarRequisicao($_REQUEST['rota'], $queryItens);
+} catch (\Throwable $th) {
+    dd($th);
+}

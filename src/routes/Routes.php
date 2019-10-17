@@ -30,8 +30,8 @@ class Routes {
             $obj = new $classe;
             echo $obj->$acao();
         } else {
-            # 404 Exception
+            abort(404, 'Página não encontrada!');
         }
     }
-    
+
 }
