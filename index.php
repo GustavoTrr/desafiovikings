@@ -8,7 +8,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 // var_dump($_REQUEST);
 
-use Viking\Controllers\TesteController;
+use Viking\Routes\Routes;
 
-$testeController = new TesteController();
-$testeController->testar();
+$testeRota = new Routes();
+$testeRota->testar();
