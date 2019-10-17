@@ -3,7 +3,7 @@
 namespace Viking\Controllers;
 
 /**
- * Classe pai Controller
+ * Classe exemplo de controller
  */
 class TesteController extends Controller {
     
