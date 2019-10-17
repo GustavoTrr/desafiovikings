@@ -20,15 +20,18 @@ class Routes {
 
     public function direcionarRequisicao($rota, $queryString)
     {
-        //
-    }
+        $rotaDefinida = self::ROTAS[$rota] ?? null;
+        if (!empty($rotaDefinida)) {
+            $arrayRotaAcao = explode('@',$rotaDefinida);
 
-    public function testar()
-    {
-        $controller = 'TesteController';
-        $acao = 'testar';
-        $classe =  '\\Viking\\Controllers\\' . $controller;
-        $obj = new $classe;
-        echo $obj->$acao();
+            $controller = $arrayRotaAcao[0];
+            $acao = $arrayRotaAcao[1];
+            $classe =  '\\Viking\\Controllers\\' . $controller;
+            $obj = new $classe;
+            echo $obj->$acao();
+        } else {
+            # 404 Exception
+        }
     }
+    
 }

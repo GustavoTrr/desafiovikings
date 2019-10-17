@@ -6,9 +6,11 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-// var_dump($_REQUEST);
-
 use Viking\Routes\Routes;
 
-$testeRota = new Routes();
-$testeRota->testar();
+//Separamos a queryString do restante da rota para enviar como parâmetros
+$queryItens = $_REQUEST;
+unset($queryItens['rota']);
+
+$routes = new Routes();
+$routes->direcionarRequisicao($_REQUEST['rota'], $queryItens);
