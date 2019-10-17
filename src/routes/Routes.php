@@ -16,6 +16,7 @@ class Routes {
      */
     const ROTAS = [
         'teste' => 'TesteController@testar',
+        'pagina' => 'TesteController@primeiraPagina',
     ];
 
 
