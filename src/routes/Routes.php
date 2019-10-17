@@ -18,7 +18,20 @@ class Routes {
         'teste' => 'TesteController@testar',
     ];
 
-    public function direcionarRequisicao($rota, $queryString)
+
+    //**************************************************/
+
+
+    /**
+     * Direcionamento da Requisição
+     * Esta função é responsável por interpretar a rota definida na URI 
+     * e chamar o controller e o método correspondente como definido na constante ROTAS
+     *
+     * @param string $rota
+     * @param array $arrQueryItens
+     * @return void
+     */
+    public function direcionarRequisicao($rota, $arrQueryItens)
     {
         $rotaDefinida = self::ROTAS[$rota] ?? null;
         if (!empty($rotaDefinida)) {
