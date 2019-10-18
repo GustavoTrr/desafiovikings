@@ -2,6 +2,7 @@
 
 namespace Viking\Models;
 
+use PDO;
 use Viking\Database\Connection;
 
 class Model {
@@ -33,8 +34,17 @@ class Model {
      *
      * @return void
      */
-    public function getTableName()
+    public static function getTableName()
     {
+        $tableName = get_class_vars(get_called_class())['tableName'];
+        
+        if (empty($tableName)) {
+            $nomeDaClasse = substr(get_called_class(), strripos(get_called_class(), '\\') + 1);
+            $nomePadraoTabela = ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $nomeDaClasse)), '_');
+            return $nomePadraoTabela;
+        } else {
+            return $tableName;
+        }
 
     }
 
@@ -65,7 +75,11 @@ class Model {
 
     public static function findAll()
     {
-
+        $connection = self::getPDOConnection();
+        $stmt = $connection->prepare('SELECT * FROM ' . self::getTableName());
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+        return $stmt->fetchAll();
     }
 
     public function update()
@@ -87,15 +101,7 @@ class Model {
     public static function executeSQL($sql)
     {
         $pdo = self::getPDOConnection();
-        $affectedRows = $pdo->exec('CREATE TABLE `primeira` (
-            `id` INT NOT NULL,
-            `nome` VARCHAR(45) NOT NULL,
-            PRIMARY KEY (`id`),
-            UNIQUE INDEX `nome_UNIQUE` (`nome` ASC));
-          ');
-          dd('NR: ' . $affectedRows);
-        // $con = connection::getInstance();
-// echo (is_a($con, 'PDO'))?'Instanciado com êxito' :'Não deu certo!';
+        return $pdo->exec($sql);
     }
 
 }
