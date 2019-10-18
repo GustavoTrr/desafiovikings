@@ -1,0 +1,65 @@
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+//As migrations são scripts .sql que devem ter em seu nome algo que identifique a ordem com que devem ser executadas
+//Sugestão de nome: <ordem_sequencial> ou <data_hora_de_criacao> _ <palavras_que_identificam_o_que_ele_faz> . sql
+//Ex.: 2019_10_17_0600_criacao_tabela_compras.sql ou m_000001_criacao_tabela_compras.sql
+
+
+/**
+ * Verificamos se existe script de migrtion para rodar
+ * Se sim, ordenamos na ordem dos nomes dos arquivos
+ */
+
+use Viking\Database\Connection;
+
+$caminhoDirMigrations = __DIR__ . '/database/migrations';
+$arrNomesScripts = scandir($caminhoDirMigrations);
+
+/**
+ * Pegamos as configurações do banco de dados e iniciamos a conexão
+ */
+$connection = Connection::getInstance();
+
+/**
+ * Listamos os scripts que já foram executados, para não correr risco de executá-los novamente
+ */
+
+$arrMigtations = [];
+if ($connection->query("SHOW TABLES LIKE 'migrations'")->rowCount() > 0) {
+  $arrMigtations = $connection->query('SELECT nome FROM `migrations`;')->fetchAll(PDO::FETCH_COLUMN) ?: [];
+} else {
+   //caso não exista a tabela, criamos 
+  $connection->exec('CREATE TABLE `migrations` (
+      `nome` VARCHAR(300) NOT NULL,
+      `data_execucao` DATE NOT NULL);');
+}
+
+/**
+ * Executamos os scripts que não estão listados no $arrMigrations
+ */
+
+//Preparamos a query que registrará os scripts executados
+$stmt = $connection->prepare('INSERT INTO migrations (nome, data_execucao) VALUES (:nomescript, :dataexecucao)');
+$dataHoje = date('Y-m-d');
+// var_dump($arrNomesScripts);
+foreach ($arrNomesScripts as $nomeScript) {
+  
+  // echo "$caminhoScript /r/n";
+  if ((!in_array($nomeScript, $arrMigtations)) && (!in_array($nomeScript, ['.', '..']))) {
+    echo "Executando script $nomeScript" . PHP_EOL;
+    $caminhoScript = $caminhoDirMigrations . '/' . $nomeScript;
+    $connection->exec(file_get_contents($caminhoScript));
+
+    // salvamos na tabela migrations
+    $stmt->bindParam(':nomescript', $nomeScript);
+    $stmt->bindParam(':dataexecucao', $dataHoje);
+    $stmt->execute();
+    echo "Script $nomeScript executado com sucesso" . PHP_EOL;
+  }
+}
+
+
+
+
