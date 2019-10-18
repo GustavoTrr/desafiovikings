@@ -18,4 +18,9 @@ class TesteController extends Controller {
     {
         return View::renderizar('primeiroteste');
     }
+
+    public function testarParametro($qualquerValor)
+    {
+        dd($qualquerValor);
+    }
 }
