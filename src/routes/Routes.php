@@ -10,18 +10,21 @@ class Routes {
     
     /**
      * Aqui devem ser definidas as rotas da seguinte forma:
-     * o índice de cada item deve ser a parte da rota sem o domínio e sem a query string
-     * o valor de cada item deve ser o nome da classe Controller concatenado de um "@" seguido do nome do método do controller que deverá ser chamado
-     * Ex.: ['testes/minha-primeira-rota' => 'TestesController@minhaPrimeiraRota']
+     * um array representado cada rota. Dentro de cada array, deve conter:
+     * uma string que indique o método HTTP esperado para aquela rota
+     * uma string indicando como  a URI deve ser montada para ser direcionada àquela rota
+     * uma string contendo o nome da classe Controller concatenado de um "@" seguido do nome do método do controller que deverá ser chamado
+     * Ex.: ['GET', 'testes/minha-primeira-rota' => 'TestesController@minhaPrimeiraRota']
      * 
      * É possível inserir um parâmetro variável na rota que deve ser definido dentro de chaves e deve ocupar a última posição da string, logo após a barra
      * O valor que for passado naquela posição dentro da URI será enviado como parâmetro do método
-     * Ex.: ['testes/minha-segunda-rota/{meuID}' => '']
+     * Ex.: ['GET','testes/minha-segunda-rota/{meuID}' => 'TestesController@testarComParametro']
+     * Obs.: A assinatura do método no Controller deve contemplar uma variável para receber o parâmetro enviado
      */
     const ROTAS = [
-        'teste-parametrizado/{qualquerValor}' => 'TesteController@testarParametro',
-        'teste' => 'TesteController@testar',
-        'pagina' => 'DoisController@primeiraPagina',
+        ['GET', '', 'VikingController@inicio'],
+        ['GET', 'login', 'LoginController@apresentarFormularioDeLogin'],
+        ['POST', 'login', 'LoginController@logar'],
     ];
 
 
@@ -33,13 +36,14 @@ class Routes {
      * Esta função é responsável por interpretar a rota definida na URI 
      * e chamar o controller e o método correspondente como definido na constante ROTAS
      *
-     * @param string $rota
+     * @param string metodoHTTP
+     * @param string $rotaSolicitada
      * @param array $arrQueryItens
      * @return void
      */
-    public function direcionarRequisicao($rota, $arrQueryItens)
+    public function direcionarRequisicao($metodoHTTP, $rotaSolicitada, $arrQueryItens)
     {
-        $arrDadosRotaEncontrada = $this->encontrarRota($rota);
+        $arrDadosRotaEncontrada = $this->encontrarRota($metodoHTTP, $rotaSolicitada);
 
         if ($arrDadosRotaEncontrada) {
             $controller = $arrDadosRotaEncontrada['controller'];
@@ -60,12 +64,21 @@ class Routes {
     /**
      * retorna Controller, método e parametro com base na constante de rotas ou false/null em caso de não achar nada
      *
+     * @param string $metodoHTTP GET/PUT/POST/DELETE
      * @param string $rota
      * @return array [controller, metodo, parametro]
      */
-    public function encontrarRota($rota)
+    public function encontrarRota($metodoHTTPRequisicao, $rota)
     {
-        foreach (self::ROTAS as $uri => $strControllerEMetodo) {
+        // dd($metodoHTTPRequisicao);
+        foreach (self::ROTAS as $arrDadosRota) {
+            if ($arrDadosRota[0] != $metodoHTTPRequisicao) {
+                // dd('e diferente');
+                continue;
+            }
+            $uri = $arrDadosRota[1];
+            // dd($uri);
+            $strControllerEMetodo = $arrDadosRota[2];
             if ($rota=='autor') {die('<h2>Autores:</h2> <br/> <h3>Gustavo Torres & Igor Machado</h3>');}
             $rotaEncontrada = false;
             $posicaoInicioParametro = stripos($uri, '{');

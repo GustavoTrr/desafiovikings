@@ -15,7 +15,7 @@ unset($queryItens['rota']);
 
 try {
     $routes = new Routes();
-    $routes->direcionarRequisicao($_REQUEST['rota'], $queryItens);
+    $routes->direcionarRequisicao($_SERVER['REQUEST_METHOD'], $_REQUEST['rota'], $queryItens);
 } catch (\Throwable $th) {
     dd($th);
 }
