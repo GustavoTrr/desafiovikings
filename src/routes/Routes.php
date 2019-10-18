@@ -2,39 +2,18 @@
 
 namespace Viking\Routes;
 
+use Viking\Config\RoutesConfig;
+
 /**
  * Classe responsavel pelo roteamento da aplicação
  * Definindo a URI e seu respectivo controller e action
  */
 class Routes {
-    
-    /**
-     * Aqui devem ser definidas as rotas da seguinte forma:
-     * um array representado cada rota. Dentro de cada array, deve conter:
-     * uma string que indique o método HTTP esperado para aquela rota
-     * uma string indicando como  a URI deve ser montada para ser direcionada àquela rota
-     * uma string contendo o nome da classe Controller concatenado de um "@" seguido do nome do método do controller que deverá ser chamado
-     * Ex.: ['GET', 'testes/minha-primeira-rota' => 'TestesController@minhaPrimeiraRota']
-     * 
-     * É possível inserir um parâmetro variável na rota que deve ser definido dentro de chaves e deve ocupar a última posição da string, logo após a barra
-     * O valor que for passado naquela posição dentro da URI será enviado como parâmetro do método
-     * Ex.: ['GET','testes/minha-segunda-rota/{meuID}' => 'TestesController@testarComParametro']
-     * Obs.: A assinatura do método no Controller deve contemplar uma variável para receber o parâmetro enviado
-     */
-    const ROTAS = [
-        ['GET', '', 'VikingController@inicio'],
-        ['GET', 'login', 'LoginController@apresentarFormularioDeLogin'],
-        ['POST', 'login', 'LoginController@logar'],
-    ];
-
-
-    //**************************************************/
-
 
     /**
      * Direcionamento da Requisição
      * Esta função é responsável por interpretar a rota definida na URI 
-     * e chamar o controller e o método correspondente como definido na constante ROTAS
+     * e chamar o controller e o método correspondente como definido na constante ROTAS do arquivo de configuração RoutesConfig
      *
      * @param string metodoHTTP
      * @param string $rotaSolicitada
@@ -71,7 +50,7 @@ class Routes {
     public function encontrarRota($metodoHTTPRequisicao, $rota)
     {
         // dd($metodoHTTPRequisicao);
-        foreach (self::ROTAS as $arrDadosRota) {
+        foreach (RoutesConfig::ROTAS as $arrDadosRota) {
             if ($arrDadosRota[0] != $metodoHTTPRequisicao) {
                 // dd('e diferente');
                 continue;
