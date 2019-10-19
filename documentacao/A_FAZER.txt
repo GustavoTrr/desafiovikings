@@ -4,11 +4,6 @@
 Framework:
 
  - Implementação de Views e Páginas
- - Sistema de Login
- - Sistema de Migration
- - Sistema de config e .ENV
- - Conexão com banco de dados
- - Implementação da Model
  - Envio de Emails
  - *Logs
  - *Página estilizadas para exceção
