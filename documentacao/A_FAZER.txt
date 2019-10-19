@@ -3,10 +3,6 @@
 
 Framework:
 
- - Implementação de Views e Páginas
-	- Fazer funcionar a questao do diretório public
-	- js, css, e etc
- - Envio de Emails
  - *Logs
  - *Página estilizadas para exceção
 
@@ -16,11 +12,12 @@ Framework:
 
 App:
 
- - Importar XML e salvar no banco
- - Exportar Excel
+ - Criar rotas, controllers e estrutura básica das páginas que vão abrigar as funcionalidades
  - Página com listagem (e botões: importar, criarNovo, exportar, editar, deletar)
  - Página com Formulário de criação/edição
  - Página com Formulário para envio de emails automático
+ - Importar XML e salvar no banco
+ - Exportar Excel
 
 ---
 
@@ -28,6 +25,7 @@ Frufruzisses:
 
  - melhorar a estrutura de helpers e comando CLI, passando a chamar classes
  - aumentar facilidade de instalação
+	- tentar colocar a função de composer install 
 
 ---
 
