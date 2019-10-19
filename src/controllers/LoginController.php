@@ -27,7 +27,7 @@ class LoginController extends Controller {
 
     public function logout()
     {
-        session_destroy();
+        Auth::logout();
     }
 
 }
