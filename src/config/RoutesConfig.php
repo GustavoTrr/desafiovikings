@@ -27,5 +27,6 @@ class RoutesConfig extends Config{
         ['GET', '', 'VikingController@inicio', true],
         ['GET', 'login', 'LoginController@apresentarFormularioDeLogin'],
         ['POST', 'login', 'LoginController@logar'],
+        ['GET', 'logout', 'LoginController@logout'],
     ];
 }
