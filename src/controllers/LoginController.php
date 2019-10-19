@@ -13,7 +13,7 @@ use Viking\Views\View;
  */
 class LoginController extends Controller {
     
-    public function apresentarFormularioDeLogin()
+    public function loginForm()
     {
         echo View::renderizar('login');
     }

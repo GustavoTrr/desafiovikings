@@ -25,8 +25,20 @@ class RoutesConfig extends Config{
      */
     const ROTAS = [
         ['GET', '', 'VikingController@inicio', true],
-        ['GET', 'login', 'LoginController@apresentarFormularioDeLogin'],
+        ['GET', 'login', 'LoginController@loginForm'],
         ['POST', 'login', 'LoginController@logar'],
+        ['GET', 'login/recuperar-senha', 'LoginController@recuperarSenhaForm'],
+        ['POST', 'login/recuperar-senha', 'LoginController@recuperarSenha'],
+        ['GET', 'alterar-senha', 'LoginController@alterarSenhaForm', true],
+        ['POST', 'alterar-senha', 'LoginController@alterarSenha', true],
         ['GET', 'logout', 'LoginController@logout'],
+        ['GET', 'cartorios', 'CartorioController@index', true],
+        ['GET', 'cartorios/criar', 'CartorioController@createForm', true],
+        ['POST', 'cartorios/criar', 'CartorioController@create', true],
+        ['GET', 'cartorios/editar/{idCartorio}', 'CartorioController@updateForm', true],
+        ['POST', 'cartorios/editar/{idCartorio}', 'CartorioController@update', true],
+        ['DELETE', 'cartorios/deletar/{idCartorio}', 'CartorioController@delete', true],
+        ['GET', 'comunicado/enviar-email', 'ComunicadoController@comunicadoForm', true],
+        ['POST', 'comunicado/enviar-email', 'ComunicadoController@enviarEmail', true],
     ];
 }
