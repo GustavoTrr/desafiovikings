@@ -13,12 +13,13 @@ session_start();
 use Viking\Routes\Routes;
 
 //Separamos a queryString do restante da rota para enviar como parâmetros
+$_REQUEST['rota'] = $_REQUEST['rota'] ?? '';
 $queryItens = $_REQUEST;
 unset($queryItens['rota']);
 
 try {
     $routes = new Routes();
-    $routes->direcionarRequisicao($_SERVER['REQUEST_METHOD'], $_REQUEST['rota'] ?? '', $queryItens);
+    $routes->direcionarRequisicao($_SERVER['REQUEST_METHOD'], $_REQUEST['rota'], $queryItens);
 } catch (\Throwable $th) {
     dd($th);
 }
