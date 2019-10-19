@@ -3,6 +3,7 @@
 namespace Viking\Auth;
 
 use Viking\Models\Usuario;
+use Viking\Routes\Routes;
 
 class Auth {
     
@@ -22,7 +23,7 @@ class Auth {
     public static function redirecionarParaLogin()
     {
         if ($_REQUEST['rota'] != 'login') {
-            header('location: login');
+            header('location: '.Routes::getBaseURL().'/login');
         }
     }
 

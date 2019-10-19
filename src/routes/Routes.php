@@ -115,4 +115,14 @@ class Routes {
         Auth::validarAutenticacaoUsuario();
     }
 
+    /**
+     * Função responsável por retornar a base da url da aplicação
+     *
+     * @return void
+     */
+    public static function getBaseURL()
+    {
+        return 'http://' . $_SERVER['HTTP_HOST'] . substr($_SERVER['REQUEST_URI'], 0, -(strlen($_REQUEST['rota'])+1));
+    }
+
 }
