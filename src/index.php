@@ -7,6 +7,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/helpers/helpers.php';
 
+session_start();
+
 use Viking\Routes\Routes;
 
 //Separamos a queryString do restante da rota para enviar como parâmetros

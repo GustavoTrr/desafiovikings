@@ -15,6 +15,7 @@ class RoutesConfig extends Config{
      * uma string que indique o método HTTP esperado para aquela rota
      * uma string indicando como  a URI deve ser montada para ser direcionada àquela rota
      * uma string contendo o nome da classe Controller concatenado de um "@" seguido do nome do método do controller que deverá ser chamado
+     * um valor booleano [true/false] para informar se é necessário que o ususário esteja autenticado para aquela rota. Se não inserir este valor, é considerado "false"
      * Ex.: ['GET', 'testes/minha-primeira-rota' => 'TestesController@minhaPrimeiraRota']
      * 
      * É possível inserir um parâmetro variável na rota que deve ser definido dentro de chaves e deve ocupar a última posição da string, logo após a barra
@@ -23,7 +24,7 @@ class RoutesConfig extends Config{
      * Obs.: A assinatura do método no Controller deve contemplar uma variável para receber o parâmetro enviado
      */
     const ROTAS = [
-        ['GET', '', 'VikingController@inicio'],
+        ['GET', '', 'VikingController@inicio', true],
         ['GET', 'login', 'LoginController@apresentarFormularioDeLogin'],
         ['POST', 'login', 'LoginController@logar'],
     ];

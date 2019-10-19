@@ -2,7 +2,9 @@
 
 namespace Viking\Routes;
 
+use Viking\Auth\Auth;
 use Viking\Config\RoutesConfig;
+use Viking\Request\Request;
 
 /**
  * Classe responsavel pelo roteamento da aplicação
@@ -22,17 +24,24 @@ class Routes {
      */
     public function direcionarRequisicao($metodoHTTP, $rotaSolicitada, $arrQueryItens)
     {
+        // dd($arrQueryItens);//@todo esse queryItens deve virar atributo de uma classe Request
         $arrDadosRotaEncontrada = $this->encontrarRota($metodoHTTP, $rotaSolicitada);
 
         if ($arrDadosRotaEncontrada) {
+            if ($arrDadosRotaEncontrada['necessitaAutenticacao']) {
+                $this->verificarLogin($rotaSolicitada);
+            }
+            // dd(new Request());
+            $requisicao = new Request();
+            $requisicao->receberParametrosDaRequisicao($arrQueryItens);
             $controller = $arrDadosRotaEncontrada['controller'];
             $acao = $arrDadosRotaEncontrada['metodo'];
             $classe =  '\\Viking\\Controllers\\' . $controller;
             $obj = new $classe;
             if (!empty($arrDadosRotaEncontrada['parametro'])) {
-                echo $obj->$acao($arrDadosRotaEncontrada['parametro']);
+                echo $obj->$acao($requisicao, $arrDadosRotaEncontrada['parametro']);
             } else {
-                echo $obj->$acao();
+                echo $obj->$acao($requisicao);
             }
             
         } else {
@@ -49,15 +58,13 @@ class Routes {
      */
     public function encontrarRota($metodoHTTPRequisicao, $rota)
     {
-        // dd($metodoHTTPRequisicao);
         foreach (RoutesConfig::ROTAS as $arrDadosRota) {
             if ($arrDadosRota[0] != $metodoHTTPRequisicao) {
-                // dd('e diferente');
                 continue;
             }
             $uri = $arrDadosRota[1];
-            // dd($uri);
             $strControllerEMetodo = $arrDadosRota[2];
+            $necessitaAutenticacao = $arrDadosRota[3] ?? false;
             if ($rota=='autor') {die('<h2>Autores:</h2> <br/> <h3>Gustavo Torres & Igor Machado</h3>');}
             $rotaEncontrada = false;
             $posicaoInicioParametro = stripos($uri, '{');
@@ -93,8 +100,19 @@ class Routes {
                 'controller' => $arrayControllerEMetodo[0],
                 'metodo' => $arrayControllerEMetodo[1],
                 'parametro' => $parametro,
+                'necessitaAutenticacao' => $necessitaAutenticacao,
             ];
         }
+    }
+
+    /**
+     * Função responsável por verificar se o usuário já está autenticado no sistema
+     *
+     * @return void
+     */
+    public function verificarLogin()
+    {
+        Auth::validarAutenticacaoUsuario();
     }
 
 }

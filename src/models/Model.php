@@ -14,6 +14,8 @@ class Model {
     /**
      * Este atributo deve guardar a lista de todos os atributos que não estão representados no banco de dados
      */
+    private $connection;
+    private $stmt;
     protected $virtualAttributes = [];
     protected $tableName;
 
@@ -53,19 +55,50 @@ class Model {
 
     }
 
-    public static function find()
+    public static function find(int $id)
     {
-
+        $connection = self::getPDOConnection();
+        $stmt = $connection->prepare('SELECT * FROM ' . self::getTableName() . ' WHERE id = ' . $id);
+        $stmt->execute();
+        return $stmt->fetchObject(get_called_class());
     }
 
-    public function where()
+    public function findWhere(array $arrParametros)
     {
+        $arrCampos = array_keys($arrParametros);
+        $arrCampos = array_map(function($campo){
+            return $campo . ' = :' . $campo;
+        }, $arrCampos);
+        $strCamposPesquisa = implode(' AND ', $arrCampos);
 
+        $connection = self::getPDOConnection();
+        $this->stmt = $connection->prepare('SELECT * FROM ' . self::getTableName() . ' WHERE ' . $strCamposPesquisa);
+
+        foreach ($arrParametros as $key => $value) {
+            // $this->stmt->bindParam(':' . $key, $value, PDO::PARAM_STR); //ESTE PRECISA PASSAR O $VALUE POR REFERENCIA &
+            $this->stmt->bindValue(':' . $key, $value, PDO::PARAM_STR);
+        }
+        
+
+        return $this;
+    }
+
+    public static function where(array $arrParametros)
+    {
+        $calledClass = get_called_class();
+        $self = new $calledClass();
+        return $self->findWhere($arrParametros);
     }
 
     public function one()
     {
-
+        if (is_a($this->stmt, 'PDOStatement')) {
+            $this->stmt->execute();
+            $this->stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+            return $this->stmt->fetch();
+        } else {
+            throw new \Exception("Erro ao chamar método 'one()'", 1);
+        }
     }
 
     public function all()

@@ -2,6 +2,10 @@
 
 namespace Viking\Controllers;
 
+use Viking\Auth\Auth;
+use Viking\Models\Model;
+use Viking\Models\Usuario;
+use Viking\Request\Request;
 use Viking\Views\View;
 
 /**
@@ -11,12 +15,19 @@ class LoginController extends Controller {
     
     public function apresentarFormularioDeLogin()
     {
-        echo "Apresentar formulário de login";
+        echo View::renderizar('login');
     }
 
-    public function logar()
+    public function logar(Request $request)
     {
-        echo "Logar";
+        if (Auth::logar($request->get('login'), $request->get('senha'))) {
+            die('Você está Logado!');
+        }
+    }
+
+    public function logout()
+    {
+        session_destroy();
     }
 
 }
