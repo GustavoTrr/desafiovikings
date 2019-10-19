@@ -4,6 +4,8 @@
 Framework:
 
  - Implementação de Views e Páginas
+	- Fazer funcionar a questao do diretório public
+	- js, css, e etc
  - Envio de Emails
  - *Logs
  - *Página estilizadas para exceção
@@ -19,3 +21,18 @@ App:
  - Página com listagem (e botões: importar, criarNovo, exportar, editar, deletar)
  - Página com Formulário de criação/edição
  - Página com Formulário para envio de emails automático
+
+---
+
+Frufruzisses:
+
+ - melhorar a estrutura de helpers e comando CLI, passando a chamar classes
+ - aumentar facilidade de instalação
+
+---
+
+Para entrega:
+
+ - Fazer testes de caixa preta
+ - rever/limpar código
+ - finalizar documentação
