@@ -125,4 +125,34 @@ class Routes {
         return 'http://' . $_SERVER['HTTP_HOST'] . substr($_SERVER['REQUEST_URI'], 0, -(strlen($_REQUEST['rota'])+1));
     }
 
+    /**
+     * Retorna a rota que está definida como rota inicial pública ou base url
+     *
+     * @return void
+     */
+    public static function getRotaInicialPublica()
+    {
+        return (!empty(RoutesConfig::ROTA_INICIAL_PUBLICA)) ? self::getBaseURL() . '/' . RoutesConfig::ROTA_INICIAL_PUBLICA : self::getBaseURL();
+    }
+
+    /**
+     * Retorna a rota que está definida como rota inicial autenticada ou base url
+     *
+     * @return void
+     */
+    public static function getRotaInicialAutenticada()
+    {
+        return (!empty(RoutesConfig::ROTA_INICIAL_AUTENTICADA)) ? self::getBaseURL() . '/' . RoutesConfig::ROTA_INICIAL_AUTENTICADA : self::getBaseURL();
+    }
+
+    /**
+     * Retorna a rota que está definida como rota de login ou base url
+     *
+     * @return void
+     */
+    public static function getRotaLogin()
+    {
+        return (!empty(RoutesConfig::ROTA_LOGIN)) ? self::getBaseURL() . '/' . RoutesConfig::ROTA_LOGIN : self::getBaseURL();
+    }
+
 }

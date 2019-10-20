@@ -8,6 +8,10 @@ class RoutesConfig extends Config{
      * Classe crida para isolar a configuração das rotas dos mecanismos que as operam
      */
 
+     const ROTA_INICIAL_PUBLICA = 'login';
+     const ROTA_INICIAL_AUTENTICADA = 'cartorios';
+     const ROTA_LOGIN = 'login';
+
 
     /**
      * Aqui devem ser definidas as rotas da seguinte forma:
@@ -33,8 +37,8 @@ class RoutesConfig extends Config{
         ['POST', 'alterar-senha', 'LoginController@alterarSenha', true],
         ['GET', 'logout', 'LoginController@logout'],
         ['GET', 'cartorios', 'CartorioController@index', true],
-        ['GET', 'cartorios/criar', 'CartorioController@createForm', true],
-        ['POST', 'cartorios/criar', 'CartorioController@create', true],
+        ['GET', 'cartorios/cadastrar', 'CartorioController@createForm', true],
+        ['POST', 'cartorios/cadastrar', 'CartorioController@create', true],
         ['GET', 'cartorios/editar/{idCartorio}', 'CartorioController@updateForm', true],
         ['POST', 'cartorios/editar/{idCartorio}', 'CartorioController@update', true],
         ['DELETE', 'cartorios/deletar/{idCartorio}', 'CartorioController@delete', true],
