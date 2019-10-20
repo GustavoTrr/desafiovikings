@@ -6,6 +6,7 @@ use Viking\Auth\Auth;
 use Viking\Models\Model;
 use Viking\Models\Usuario;
 use Viking\Request\Request;
+use Viking\Routes\Routes;
 use Viking\Views\View;
 
 /**
@@ -20,7 +21,11 @@ class LoginController extends Controller {
      */
     public function loginForm()
     {
-        echo View::renderizar('login');
+        if (Auth::isAuthenticated()) {
+            header('location: ' . Routes::getRotaInicialAutenticada());
+        } else {
+            echo View::renderizar('login');
+        }
     }
 
     /**
@@ -32,9 +37,9 @@ class LoginController extends Controller {
     public function logar(Request $request)
     {
         if (Auth::logar($request->get('login'), $request->get('senha'))) {
-            die('Você está Logado!');
+            header('location: ' . Routes::getRotaInicialAutenticada());
         } else {
-            self::apresentarFormularioDeLogin();
+            self::loginForm();
         }
     }
 

@@ -2,6 +2,8 @@
 
 namespace Viking\Controllers;
 
+use Viking\Auth\Auth;
+use Viking\Routes\Routes;
 use Viking\Views\View;
 
 /**
@@ -10,8 +12,12 @@ use Viking\Views\View;
 class VikingController extends Controller {
     
     public function inicio()
-    {
-        echo "Página Inicial";
+    {        
+        if (Auth::isAuthenticated()) {
+            header('location: ' . Routes::getRotaInicialAutenticada());
+        } else {
+            header('location: ' . Routes::getRotaInicialPublica());
+        }
     }
 
 }

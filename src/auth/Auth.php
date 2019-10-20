@@ -15,7 +15,7 @@ class Auth {
 
     public static function validarAutenticacaoUsuario()
     {
-        if (empty($_SESSION['idUsuarioLogado'])) {
+        if (!self::isAuthenticated()) {
             self::redirecionarParaLogin();
         }
     }
@@ -23,7 +23,7 @@ class Auth {
     public static function redirecionarParaLogin()
     {
         if ($_REQUEST['rota'] != 'login') {
-            header('location: '.Routes::getBaseURL().'/login');
+            header('location: '.Routes::getRotaLogin());
         }
     }
 
@@ -41,5 +41,15 @@ class Auth {
     {
         session_destroy();
         self::redirecionarParaLogin();
+    }
+
+    /**
+     * Retorna se o usuário atual está ou não autenticado
+     *
+     * @return boolean
+     */
+    public static function isAuthenticated()
+    {
+        return (!empty($_SESSION['idUsuarioLogado']));
     }
 }
