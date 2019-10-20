@@ -17,7 +17,7 @@ class CartorioController extends Controller {
      */
     public function index()
     {
-
+        View::renderizar('cartorios/index', ['pagetitle' => 'Cartórios']);
     }
 
     /**
