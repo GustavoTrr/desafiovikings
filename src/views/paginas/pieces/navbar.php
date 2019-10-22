@@ -23,7 +23,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" href="logout">
+        <a class="nav-link" href="<?php echo appbaseurl(); ?>/logout">
           <i class="fa fa-power-off"></i>
         </a>
       </li>
