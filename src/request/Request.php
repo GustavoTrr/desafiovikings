@@ -37,4 +37,10 @@ class Request {
             throw new \Exception("O parâmetro $parametro não existe.");
         }
     }
+
+    public function getAll()
+    {
+        return $this->parametrosDaRequisicao;
+    }
+
 }
