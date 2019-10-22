@@ -13,9 +13,6 @@ Framework:
 App:
 
  - Criar rotas, controllers e estrutura básica das páginas que vão abrigar as funcionalidades
- - Página com listagem (e botões: importar, criarNovo, exportar, editar, deletar)
- - Página com Formulário de criação/edição
- - Página com Formulário para envio de emails automático
  - Importar XML e salvar no banco
  - Exportar Excel
 

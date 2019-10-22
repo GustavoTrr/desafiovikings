@@ -52,7 +52,23 @@ class Model {
 
     public static function create(array $arrAtributos = [])
     {
+        $arrCampos = array_keys($arrAtributos);
+        $strCampos = implode(', ', $arrCampos);
 
+        $arrValores = array_map(function($campo){
+            return ' :' . $campo;
+        }, $arrCampos);
+        $strValores = implode(', ', $arrValores);
+
+        $connection = self::getPDOConnection();
+        $stmt = $connection->prepare('INSERT INTO ' . self::getTableName() . ' (' . $strCampos .') VALUES (' . $strValores. ');');
+
+        foreach ($arrAtributos as $key => $value) {
+            // $stmt->bindParam(':' . $key, $value, PDO::PARAM_STR); //ESTE PRECISA PASSAR O $VALUE POR REFERENCIA &
+            $stmt->bindValue(':' . $key, $value, PDO::PARAM_STR);
+        }
+
+        return $stmt->execute();
     }
 
     public static function find(int $id)
@@ -90,6 +106,16 @@ class Model {
         return $self->findWhere($arrParametros);
     }
 
+    public function exists()
+    {
+        if (is_a($this->stmt, 'PDOStatement')) {
+            $this->stmt->execute();
+            return $this->stmt->rowCount() > 0;
+        } else {
+            throw new \Exception("Erro ao chamar método 'exists()'. O PDOStatement não foi iniciado.", 1);
+        }
+    }
+
     public function one()
     {
         if (is_a($this->stmt, 'PDOStatement')) {
@@ -115,9 +141,18 @@ class Model {
         return $stmt->fetchAll();
     }
 
-    public function update()
+    public function update($arrParametros = [])
     {
+        $arrCampos = array_keys($arrParametros);
+        $arrCampos = array_map(function($campo){
+            return $campo . ' = :' . $campo;
+        }, $arrCampos);
+        $strCampos = implode(', ', $arrCampos);
 
+        $connection = self::getPDOConnection();
+        $stmt = $connection->prepare('UPDATE ' . self::getTableName() . ' SET ' . $strCampos .' WHERE id = ' . $this->id . ';');
+
+        return $stmt->execute($arrParametros);
     }
 
     public function delete()
@@ -135,6 +170,13 @@ class Model {
     {
         $pdo = self::getPDOConnection();
         return $pdo->exec($sql);
+    }
+
+    public static function criptografarSenha($senha)
+    {
+        // password_verify
+        // return password_hash($senha,PASSWORD_BCRYPT);
+        return $senha;
     }
 
 }

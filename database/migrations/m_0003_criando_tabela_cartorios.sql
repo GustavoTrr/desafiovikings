@@ -1,0 +1,16 @@
+CREATE TABLE `cartorios` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome_cartorio` VARCHAR(200) NOT NULL,
+  `razao_social` VARCHAR(200) NOT NULL,
+  `tipo_documento` VARCHAR(200) NOT NULL DEFAULT '2',
+  `documento` VARCHAR(200) NOT NULL,
+  `nome_tabeliao` VARCHAR(200) NOT NULL,
+  `telefone` VARCHAR(20) NULL,
+  `email` VARCHAR(200) NULL,
+  `cep` VARCHAR(10) NULL,
+  `endereco` VARCHAR(200) NULL,
+  `bairro` VARCHAR(200) NULL,
+  `cidade` VARCHAR(200) NULL,
+  `uf` VARCHAR(2) NULL,
+  `ativo` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`));

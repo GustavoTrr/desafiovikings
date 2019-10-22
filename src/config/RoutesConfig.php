@@ -44,5 +44,7 @@ class RoutesConfig extends Config{
         ['DELETE', 'cartorios/deletar/{idCartorio}', 'CartorioController@delete', true],
         ['GET', 'comunicado/enviar-email', 'ComunicadoController@comunicadoForm', true],
         ['POST', 'comunicado/enviar-email', 'ComunicadoController@enviarEmail', true],
+        ['POST', 'cartorios/enviar-xml', 'CartorioController@uploadXML', true],
+        ['GET', 'cartorios/exportar-excel', 'CartorioController@exportarParaExcel', true],
     ];
 }
