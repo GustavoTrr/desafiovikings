@@ -2,6 +2,8 @@
 
 Este projeto foi criado para atender o desafio proposto no processo de seleção da equipe [Vikings](https://github.com/p21sistemas/vikings/blob/master/index.md)
 
+Uma versão em funcionamento pode ser acessada aqui [http://desafioviking.esy.es](http://desafioviking.esy.es)
+
 ## Construção
 
 Este sistema foi construindo ulizando a stack PHP, JS, CSS e HTML.
