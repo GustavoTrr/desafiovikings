@@ -76,3 +76,9 @@ function getconfig($param)
 {
    return Config::getEnv($param) ?? '';
 }
+
+function redirectWithErrors($endereco, $arrErrors)
+{
+   $_SESSION['errors'] = $arrErrors;
+   header('location: ' . Routes::getBaseURL() . '/' . $endereco);
+}
