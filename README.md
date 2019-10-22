@@ -19,9 +19,6 @@ A estrutura, que se assemelha a um microframework, foi construída apenas em PHP
 2. O mod_rewrite do Apache esteja habilitado
 	2.1 Em caso de dúvidas pode seguir o tutorial em http://www.devfuria.com.br/linux/apache-habilitar-mod_rewrite-no-apache-mod/
 
-```
-Give examples
-```
 
 ### Instalação
 
@@ -90,8 +87,6 @@ includeViewPiece('pieces/sidebar', ['teste' => 'minha var']);
 ```
 
 
-
-
 ## Desenvolvido com
 
 * PHP
@@ -108,19 +103,10 @@ includeViewPiece('pieces/sidebar', ['teste' => 'minha var']);
 * [AminLTE](https://adminlte.io/) - Admin Dashboard Template
 
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Versão
 
 1.0.0
 
 ## Authors
 
-* **Gustavo Torres** - *Initial work* - [GustavoTorres-SoftwareDeveloper](http://gustavo-torres.esy.es/)
-
-
-Para inclusão de páginas ou partes de páginas ".php" nas views:
-<?php include appbasepath() . '/src/views/paginas/pieces/navbar.php'; ?>
-includeViewPiece('pieces/sidebar', ['teste' => 'minha var']);
+* **Gustavo Torres** - *All work* - [GTorres-SoftwareDeveloper](http://gustavo-torres.esy.es/)
