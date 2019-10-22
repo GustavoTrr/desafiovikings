@@ -26,7 +26,7 @@ Após feito o download ou clone do projeto,
 
 * Crie um banco de dados no seu servidor MySQL
 * Copie o arquivo ".env.example", renomeando para ".env" e defina os dados de configuração neste arquivo
-* Execute acessando o diretório raiz da aplicação por um CLI (como CMD ou Terminal), execute os seguintes comandos:
+* Execute, acessando o diretório raiz da aplicação por um CLI (como CMD ou Terminal), execute os seguintes comandos:
 
 Para instalar as dependências:
 
@@ -42,7 +42,7 @@ composer dump-autoload -o
 
 Para fazer a criação da estrutura de banco de dados e a carga inicial:
 ```
-instalador-de-banco-de-dados
+php instalador-de-banco-de-dados
 ```
 
 Após estes passos, o sistema estará pronto para uso, podendo ser acessado via browser, apontando para diretório raiz da aplicação.
